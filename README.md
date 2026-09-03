@@ -8,13 +8,9 @@ Este repositorio contiene el modelado del **diagrama de casos de uso UML** del s
 
 ## Equipo
 
-> Reemplazar con los integrantes reales del equipo antes de crear el repositorio en GitHub.
-
 | Integrante | Rol en el proyecto |
 |---|---|
-| Nombre Apellido 1 | — |
-| Nombre Apellido 2 | — |
-| Nombre Apellido 3 | — |
+| Nombre Apellido | Carlos José Parra Cuentas |
 
 ## Herramienta de modelado utilizada
 
@@ -25,13 +21,3 @@ Se utilizó **Lucidchart** para la elaboración del diagrama de casos de uso, po
 - `diagramas/micita_salud_casos_uso.svg` — diagrama de casos de uso (imagen vectorial).
 - `diagramas/micita_salud_casos_uso.uml` — modelo exportado en formato XMI/UML2 (compatible con Enterprise Architect, Visual Paradigm, Astah).
 - `diagramas/micita_salud_casos_uso.mdj` — modelo nativo de StarUML.
-
-## Cómo crear el repositorio en GitHub
-
-```bash
-# 1. Crear el repositorio vacío en GitHub con el nombre hms-micita-salud-<apellidos>
-# 2. Desde esta carpeta local:
-git remote add origin https://github.com/<usuario>/hms-micita-salud-<apellidos>.git
-git branch -M main
-git push -u origin main
-```
