@@ -10,7 +10,7 @@ Este repositorio contiene el modelado del **diagrama de casos de uso UML** del s
 
 | Integrante | Rol en el proyecto |
 |---|---|
-| Nombre Apellido | Carlos José Parra Cuentas |
+| Carlos José Parra Cuentas | - |
 
 ## Herramienta de modelado utilizada
 
