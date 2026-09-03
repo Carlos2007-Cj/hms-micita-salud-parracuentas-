@@ -1,0 +1,176 @@
+{
+  "_type": "Project",
+  "_id": "PRJ",
+  "name": "MiCitaSalud",
+  "ownedElements": [
+    {
+      "_type": "UMLModel",
+      "_id": "MDL",
+      "_parent": { "$ref": "PRJ" },
+      "name": "MiCita Salud",
+      "ownedElements": [
+        { "_type": "UMLActor", "_id": "ACT_PAC",   "_parent": { "$ref": "MDL" }, "name": "Paciente" },
+        { "_type": "UMLActor", "_id": "ACT_AFIL",  "_parent": { "$ref": "MDL" }, "name": "Paciente afiliado" },
+        { "_type": "UMLActor", "_id": "ACT_PART",  "_parent": { "$ref": "MDL" }, "name": "Paciente particular" },
+        { "_type": "UMLActor", "_id": "ACT_MED",   "_parent": { "$ref": "MDL" }, "name": "Médico" },
+        { "_type": "UMLActor", "_id": "ACT_AUX",   "_parent": { "$ref": "MDL" }, "name": "Auxiliar administrativo" },
+        { "_type": "UMLActor", "_id": "ACT_ADMIN", "_parent": { "$ref": "MDL" }, "name": "Administrador del sistema" },
+        { "_type": "UMLActor", "_id": "ACT_PASA",  "_parent": { "$ref": "MDL" }, "name": "Pasarela de pagos" },
+        { "_type": "UMLActor", "_id": "ACT_HIS",   "_parent": { "$ref": "MDL" }, "name": "Sistema HIS" },
+        { "_type": "UMLActor", "_id": "ACT_MSG",   "_parent": { "$ref": "MDL" }, "name": "Servicio de mensajería" },
+
+        {
+          "_type": "UMLGeneralization",
+          "_id": "GEN_AFIL",
+          "_parent": { "$ref": "MDL" },
+          "source": { "$ref": "ACT_AFIL" },
+          "target": { "$ref": "ACT_PAC" }
+        },
+        {
+          "_type": "UMLGeneralization",
+          "_id": "GEN_PART",
+          "_parent": { "$ref": "MDL" },
+          "source": { "$ref": "ACT_PART" },
+          "target": { "$ref": "ACT_PAC" }
+        },
+
+        {
+          "_type": "UMLSubject",
+          "_id": "SUBJ",
+          "_parent": { "$ref": "MDL" },
+          "name": "Sistema MiCita Salud",
+          "ownedElements": [
+            { "_type": "UMLUseCase", "_id": "UC_REG",    "_parent": { "$ref": "SUBJ" }, "name": "Registrarse en la plataforma" },
+            { "_type": "UMLUseCase", "_id": "UC_AUTH",   "_parent": { "$ref": "SUBJ" }, "name": "Autenticar identidad" },
+            { "_type": "UMLUseCase", "_id": "UC_DISP",   "_parent": { "$ref": "SUBJ" }, "name": "Consultar disponibilidad de agenda" },
+            { "_type": "UMLUseCase", "_id": "UC_SOL",    "_parent": { "$ref": "SUBJ" }, "name": "Solicitar cita" },
+            { "_type": "UMLUseCase", "_id": "UC_CANC",   "_parent": { "$ref": "SUBJ" }, "name": "Cancelar cita" },
+            { "_type": "UMLUseCase", "_id": "UC_REPROG", "_parent": { "$ref": "SUBJ" }, "name": "Reprogramar cita" },
+            { "_type": "UMLUseCase", "_id": "UC_ADJ",    "_parent": { "$ref": "SUBJ" }, "name": "Adjuntar resultados de exámenes" },
+            { "_type": "UMLUseCase", "_id": "UC_CONF",   "_parent": { "$ref": "SUBJ" }, "name": "Confirmar cita" },
+            { "_type": "UMLUseCase", "_id": "UC_PAGO",   "_parent": { "$ref": "SUBJ" }, "name": "Procesar pago" },
+            { "_type": "UMLUseCase", "_id": "UC_AGDIA",  "_parent": { "$ref": "SUBJ" }, "name": "Consultar agenda diaria" },
+            { "_type": "UMLUseCase", "_id": "UC_EVOL",   "_parent": { "$ref": "SUBJ" }, "name": "Registrar evolución de consulta" },
+            { "_type": "UMLUseCase", "_id": "UC_ORD",    "_parent": { "$ref": "SUBJ" }, "name": "Generar órdenes médicas" },
+            { "_type": "UMLUseCase", "_id": "UC_HIST",   "_parent": { "$ref": "SUBJ" }, "name": "Consultar historia clínica" },
+            { "_type": "UMLUseCase", "_id": "UC_ADMAG",  "_parent": { "$ref": "SUBJ" }, "name": "Administrar agendas de profesionales" },
+            { "_type": "UMLUseCase", "_id": "UC_FRANJ",  "_parent": { "$ref": "SUBJ" }, "name": "Habilitar/bloquear franjas horarias" },
+            { "_type": "UMLUseCase", "_id": "UC_REP",    "_parent": { "$ref": "SUBJ" }, "name": "Generar reportes de asistencia e inasistencia" },
+            { "_type": "UMLUseCase", "_id": "UC_NOTIF",  "_parent": { "$ref": "SUBJ" }, "name": "Enviar notificación de recordatorio" },
+            { "_type": "UMLUseCase", "_id": "UC_GEST",   "_parent": { "$ref": "SUBJ" }, "name": "Gestionar usuarios y roles" }
+          ]
+        },
+
+        {
+          "_type": "UMLInclude",
+          "_id": "INC_SOL_AUTH",
+          "_parent": { "$ref": "MDL" },
+          "source": { "$ref": "UC_SOL" },
+          "target": { "$ref": "UC_AUTH" }
+        },
+        {
+          "_type": "UMLInclude",
+          "_id": "INC_EVOL_HIST",
+          "_parent": { "$ref": "MDL" },
+          "source": { "$ref": "UC_EVOL" },
+          "target": { "$ref": "UC_HIST" }
+        },
+        {
+          "_type": "UMLInclude",
+          "_id": "INC_GEST_AUTH",
+          "_parent": { "$ref": "MDL" },
+          "source": { "$ref": "UC_GEST" },
+          "target": { "$ref": "UC_AUTH" }
+        },
+        {
+          "_type": "UMLExtend",
+          "_id": "EXT_ADJ_SOL",
+          "_parent": { "$ref": "MDL" },
+          "source": { "$ref": "UC_ADJ" },
+          "target": { "$ref": "UC_SOL" }
+        },
+
+        {
+          "_type": "UMLAssociation", "_id": "ASSOC_1", "_parent": { "$ref": "MDL" },
+          "end1": { "_type": "UMLAssociationEnd", "_id": "ASSOC_1_E1", "_parent": { "$ref": "ASSOC_1" }, "reference": { "$ref": "ACT_PAC" } },
+          "end2": { "_type": "UMLAssociationEnd", "_id": "ASSOC_1_E2", "_parent": { "$ref": "ASSOC_1" }, "reference": { "$ref": "UC_REG" } }
+        },
+        {
+          "_type": "UMLAssociation", "_id": "ASSOC_2", "_parent": { "$ref": "MDL" },
+          "end1": { "_type": "UMLAssociationEnd", "_id": "ASSOC_2_E1", "_parent": { "$ref": "ASSOC_2" }, "reference": { "$ref": "ACT_PAC" } },
+          "end2": { "_type": "UMLAssociationEnd", "_id": "ASSOC_2_E2", "_parent": { "$ref": "ASSOC_2" }, "reference": { "$ref": "UC_DISP" } }
+        },
+        {
+          "_type": "UMLAssociation", "_id": "ASSOC_3", "_parent": { "$ref": "MDL" },
+          "end1": { "_type": "UMLAssociationEnd", "_id": "ASSOC_3_E1", "_parent": { "$ref": "ASSOC_3" }, "reference": { "$ref": "ACT_PAC" } },
+          "end2": { "_type": "UMLAssociationEnd", "_id": "ASSOC_3_E2", "_parent": { "$ref": "ASSOC_3" }, "reference": { "$ref": "UC_SOL" } }
+        },
+        {
+          "_type": "UMLAssociation", "_id": "ASSOC_4", "_parent": { "$ref": "MDL" },
+          "end1": { "_type": "UMLAssociationEnd", "_id": "ASSOC_4_E1", "_parent": { "$ref": "ASSOC_4" }, "reference": { "$ref": "ACT_PAC" } },
+          "end2": { "_type": "UMLAssociationEnd", "_id": "ASSOC_4_E2", "_parent": { "$ref": "ASSOC_4" }, "reference": { "$ref": "UC_CANC" } }
+        },
+        {
+          "_type": "UMLAssociation", "_id": "ASSOC_5", "_parent": { "$ref": "MDL" },
+          "end1": { "_type": "UMLAssociationEnd", "_id": "ASSOC_5_E1", "_parent": { "$ref": "ASSOC_5" }, "reference": { "$ref": "ACT_PAC" } },
+          "end2": { "_type": "UMLAssociationEnd", "_id": "ASSOC_5_E2", "_parent": { "$ref": "ASSOC_5" }, "reference": { "$ref": "UC_REPROG" } }
+        },
+        {
+          "_type": "UMLAssociation", "_id": "ASSOC_6", "_parent": { "$ref": "MDL" },
+          "end1": { "_type": "UMLAssociationEnd", "_id": "ASSOC_6_E1", "_parent": { "$ref": "ASSOC_6" }, "reference": { "$ref": "ACT_PART" } },
+          "end2": { "_type": "UMLAssociationEnd", "_id": "ASSOC_6_E2", "_parent": { "$ref": "ASSOC_6" }, "reference": { "$ref": "UC_CONF" } }
+        },
+        {
+          "_type": "UMLAssociation", "_id": "ASSOC_7", "_parent": { "$ref": "MDL" },
+          "end1": { "_type": "UMLAssociationEnd", "_id": "ASSOC_7_E1", "_parent": { "$ref": "ASSOC_7" }, "reference": { "$ref": "ACT_MED" } },
+          "end2": { "_type": "UMLAssociationEnd", "_id": "ASSOC_7_E2", "_parent": { "$ref": "ASSOC_7" }, "reference": { "$ref": "UC_AGDIA" } }
+        },
+        {
+          "_type": "UMLAssociation", "_id": "ASSOC_8", "_parent": { "$ref": "MDL" },
+          "end1": { "_type": "UMLAssociationEnd", "_id": "ASSOC_8_E1", "_parent": { "$ref": "ASSOC_8" }, "reference": { "$ref": "ACT_MED" } },
+          "end2": { "_type": "UMLAssociationEnd", "_id": "ASSOC_8_E2", "_parent": { "$ref": "ASSOC_8" }, "reference": { "$ref": "UC_EVOL" } }
+        },
+        {
+          "_type": "UMLAssociation", "_id": "ASSOC_9", "_parent": { "$ref": "MDL" },
+          "end1": { "_type": "UMLAssociationEnd", "_id": "ASSOC_9_E1", "_parent": { "$ref": "ASSOC_9" }, "reference": { "$ref": "ACT_MED" } },
+          "end2": { "_type": "UMLAssociationEnd", "_id": "ASSOC_9_E2", "_parent": { "$ref": "ASSOC_9" }, "reference": { "$ref": "UC_ORD" } }
+        },
+        {
+          "_type": "UMLAssociation", "_id": "ASSOC_10", "_parent": { "$ref": "MDL" },
+          "end1": { "_type": "UMLAssociationEnd", "_id": "ASSOC_10_E1", "_parent": { "$ref": "ASSOC_10" }, "reference": { "$ref": "ACT_AUX" } },
+          "end2": { "_type": "UMLAssociationEnd", "_id": "ASSOC_10_E2", "_parent": { "$ref": "ASSOC_10" }, "reference": { "$ref": "UC_ADMAG" } }
+        },
+        {
+          "_type": "UMLAssociation", "_id": "ASSOC_11", "_parent": { "$ref": "MDL" },
+          "end1": { "_type": "UMLAssociationEnd", "_id": "ASSOC_11_E1", "_parent": { "$ref": "ASSOC_11" }, "reference": { "$ref": "ACT_AUX" } },
+          "end2": { "_type": "UMLAssociationEnd", "_id": "ASSOC_11_E2", "_parent": { "$ref": "ASSOC_11" }, "reference": { "$ref": "UC_FRANJ" } }
+        },
+        {
+          "_type": "UMLAssociation", "_id": "ASSOC_12", "_parent": { "$ref": "MDL" },
+          "end1": { "_type": "UMLAssociationEnd", "_id": "ASSOC_12_E1", "_parent": { "$ref": "ASSOC_12" }, "reference": { "$ref": "ACT_AUX" } },
+          "end2": { "_type": "UMLAssociationEnd", "_id": "ASSOC_12_E2", "_parent": { "$ref": "ASSOC_12" }, "reference": { "$ref": "UC_REP" } }
+        },
+        {
+          "_type": "UMLAssociation", "_id": "ASSOC_13", "_parent": { "$ref": "MDL" },
+          "end1": { "_type": "UMLAssociationEnd", "_id": "ASSOC_13_E1", "_parent": { "$ref": "ASSOC_13" }, "reference": { "$ref": "ACT_ADMIN" } },
+          "end2": { "_type": "UMLAssociationEnd", "_id": "ASSOC_13_E2", "_parent": { "$ref": "ASSOC_13" }, "reference": { "$ref": "UC_GEST" } }
+        },
+        {
+          "_type": "UMLAssociation", "_id": "ASSOC_14", "_parent": { "$ref": "MDL" },
+          "end1": { "_type": "UMLAssociationEnd", "_id": "ASSOC_14_E1", "_parent": { "$ref": "ASSOC_14" }, "reference": { "$ref": "ACT_PASA" } },
+          "end2": { "_type": "UMLAssociationEnd", "_id": "ASSOC_14_E2", "_parent": { "$ref": "ASSOC_14" }, "reference": { "$ref": "UC_PAGO" } }
+        },
+        {
+          "_type": "UMLAssociation", "_id": "ASSOC_15", "_parent": { "$ref": "MDL" },
+          "end1": { "_type": "UMLAssociationEnd", "_id": "ASSOC_15_E1", "_parent": { "$ref": "ASSOC_15" }, "reference": { "$ref": "ACT_HIS" } },
+          "end2": { "_type": "UMLAssociationEnd", "_id": "ASSOC_15_E2", "_parent": { "$ref": "ASSOC_15" }, "reference": { "$ref": "UC_HIST" } }
+        },
+        {
+          "_type": "UMLAssociation", "_id": "ASSOC_16", "_parent": { "$ref": "MDL" },
+          "end1": { "_type": "UMLAssociationEnd", "_id": "ASSOC_16_E1", "_parent": { "$ref": "ASSOC_16" }, "reference": { "$ref": "ACT_MSG" } },
+          "end2": { "_type": "UMLAssociationEnd", "_id": "ASSOC_16_E2", "_parent": { "$ref": "ASSOC_16" }, "reference": { "$ref": "UC_NOTIF" } }
+        }
+      ]
+    }
+  ]
+}

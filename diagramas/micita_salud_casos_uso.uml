@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.omg.org/spec/UML/20131001">
+  <uml:Model xmi:id="model_micita" name="MiCitaSalud">
+
+    <!-- ===================== ACTORES ===================== -->
+    <packagedElement xmi:type="uml:Actor" xmi:id="actor_paciente" name="Paciente"/>
+
+    <packagedElement xmi:type="uml:Actor" xmi:id="actor_paciente_afiliado" name="Paciente afiliado">
+      <generalization xmi:id="gen_afiliado" xmi:type="uml:Generalization" general="actor_paciente"/>
+    </packagedElement>
+
+    <packagedElement xmi:type="uml:Actor" xmi:id="actor_paciente_particular" name="Paciente particular">
+      <generalization xmi:id="gen_particular" xmi:type="uml:Generalization" general="actor_paciente"/>
+    </packagedElement>
+
+    <packagedElement xmi:type="uml:Actor" xmi:id="actor_medico" name="Médico"/>
+    <packagedElement xmi:type="uml:Actor" xmi:id="actor_auxiliar" name="Auxiliar administrativo"/>
+    <packagedElement xmi:type="uml:Actor" xmi:id="actor_admin" name="Administrador del sistema"/>
+
+    <!-- Actores secundarios / sistemas externos -->
+    <packagedElement xmi:type="uml:Actor" xmi:id="actor_pasarela" name="Pasarela de pagos"/>
+    <packagedElement xmi:type="uml:Actor" xmi:id="actor_his" name="Sistema HIS"/>
+    <packagedElement xmi:type="uml:Actor" xmi:id="actor_mensajeria" name="Servicio de mensajería"/>
+
+    <!-- ===================== SISTEMA / CASOS DE USO ===================== -->
+    <packagedElement xmi:type="uml:Package" xmi:id="sistema_micita" name="Sistema MiCita Salud">
+
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc_registrarse" name="Registrarse en la plataforma"/>
+
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc_autenticar" name="Autenticar identidad"/>
+
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc_disponibilidad" name="Consultar disponibilidad de agenda"/>
+
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc_solicitar" name="Solicitar cita">
+        <include xmi:id="inc_solicitar_autenticar" xmi:type="uml:Include" addition="uc_autenticar"/>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc_cancelar" name="Cancelar cita"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc_reprogramar" name="Reprogramar cita"/>
+
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc_adjuntar" name="Adjuntar resultados de exámenes">
+        <extend xmi:id="ext_adjuntar_solicitar" xmi:type="uml:Extend" extendedCase="uc_solicitar"/>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc_confirmar" name="Confirmar cita">
+        <include xmi:id="inc_confirmar_pago" xmi:type="uml:Include" addition="uc_pago"/>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc_pago" name="Procesar pago"/>
+
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc_agenda_diaria" name="Consultar agenda diaria"/>
+
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc_evolucion" name="Registrar evolución de consulta">
+        <include xmi:id="inc_evolucion_his" xmi:type="uml:Include" addition="uc_historia_clinica"/>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc_ordenes" name="Generar órdenes médicas"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc_historia_clinica" name="Consultar historia clínica"/>
+
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc_admin_agendas" name="Administrar agendas de profesionales"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc_franjas" name="Habilitar/bloquear franjas horarias"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc_reportes" name="Generar reportes de asistencia e inasistencia"/>
+
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc_notificacion" name="Enviar notificación de recordatorio"/>
+
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc_gestionar_usuarios" name="Gestionar usuarios y roles">
+        <include xmi:id="inc_gestionar_autenticar" xmi:type="uml:Include" addition="uc_autenticar"/>
+      </packagedElement>
+
+    </packagedElement>
+
+    <!-- ===================== ASOCIACIONES ACTOR - CASO DE USO ===================== -->
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_1" name="A_Paciente_Registrarse">
+      <memberEnd xmi:idref="assoc_1_end1"/><memberEnd xmi:idref="assoc_1_end2"/>
+      <ownedEnd xmi:id="assoc_1_end1" type="actor_paciente" association="assoc_1"/>
+      <ownedEnd xmi:id="assoc_1_end2" type="uc_registrarse" association="assoc_1"/>
+    </packagedElement>
+
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_2" name="A_Paciente_Disponibilidad">
+      <memberEnd xmi:idref="assoc_2_end1"/><memberEnd xmi:idref="assoc_2_end2"/>
+      <ownedEnd xmi:id="assoc_2_end1" type="actor_paciente" association="assoc_2"/>
+      <ownedEnd xmi:id="assoc_2_end2" type="uc_disponibilidad" association="assoc_2"/>
+    </packagedElement>
+
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_3" name="A_Paciente_Solicitar">
+      <memberEnd xmi:idref="assoc_3_end1"/><memberEnd xmi:idref="assoc_3_end2"/>
+      <ownedEnd xmi:id="assoc_3_end1" type="actor_paciente" association="assoc_3"/>
+      <ownedEnd xmi:id="assoc_3_end2" type="uc_solicitar" association="assoc_3"/>
+    </packagedElement>
+
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_4" name="A_Paciente_Cancelar">
+      <memberEnd xmi:idref="assoc_4_end1"/><memberEnd xmi:idref="assoc_4_end2"/>
+      <ownedEnd xmi:id="assoc_4_end1" type="actor_paciente" association="assoc_4"/>
+      <ownedEnd xmi:id="assoc_4_end2" type="uc_cancelar" association="assoc_4"/>
+    </packagedElement>
+
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_5" name="A_Paciente_Reprogramar">
+      <memberEnd xmi:idref="assoc_5_end1"/><memberEnd xmi:idref="assoc_5_end2"/>
+      <ownedEnd xmi:id="assoc_5_end1" type="actor_paciente" association="assoc_5"/>
+      <ownedEnd xmi:id="assoc_5_end2" type="uc_reprogramar" association="assoc_5"/>
+    </packagedElement>
+
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_6" name="A_ParticularConfirmar">
+      <memberEnd xmi:idref="assoc_6_end1"/><memberEnd xmi:idref="assoc_6_end2"/>
+      <ownedEnd xmi:id="assoc_6_end1" type="actor_paciente_particular" association="assoc_6"/>
+      <ownedEnd xmi:id="assoc_6_end2" type="uc_confirmar" association="assoc_6"/>
+    </packagedElement>
+
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_7" name="A_Medico_AgendaDiaria">
+      <memberEnd xmi:idref="assoc_7_end1"/><memberEnd xmi:idref="assoc_7_end2"/>
+      <ownedEnd xmi:id="assoc_7_end1" type="actor_medico" association="assoc_7"/>
+      <ownedEnd xmi:id="assoc_7_end2" type="uc_agenda_diaria" association="assoc_7"/>
+    </packagedElement>
+
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_8" name="A_Medico_Evolucion">
+      <memberEnd xmi:idref="assoc_8_end1"/><memberEnd xmi:idref="assoc_8_end2"/>
+      <ownedEnd xmi:id="assoc_8_end1" type="actor_medico" association="assoc_8"/>
+      <ownedEnd xmi:id="assoc_8_end2" type="uc_evolucion" association="assoc_8"/>
+    </packagedElement>
+
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_9" name="A_Medico_Ordenes">
+      <memberEnd xmi:idref="assoc_9_end1"/><memberEnd xmi:idref="assoc_9_end2"/>
+      <ownedEnd xmi:id="assoc_9_end1" type="actor_medico" association="assoc_9"/>
+      <ownedEnd xmi:id="assoc_9_end2" type="uc_ordenes" association="assoc_9"/>
+    </packagedElement>
+
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_10" name="A_Auxiliar_AdminAgendas">
+      <memberEnd xmi:idref="assoc_10_end1"/><memberEnd xmi:idref="assoc_10_end2"/>
+      <ownedEnd xmi:id="assoc_10_end1" type="actor_auxiliar" association="assoc_10"/>
+      <ownedEnd xmi:id="assoc_10_end2" type="uc_admin_agendas" association="assoc_10"/>
+    </packagedElement>
+
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_11" name="A_Auxiliar_Franjas">
+      <memberEnd xmi:idref="assoc_11_end1"/><memberEnd xmi:idref="assoc_11_end2"/>
+      <ownedEnd xmi:id="assoc_11_end1" type="actor_auxiliar" association="assoc_11"/>
+      <ownedEnd xmi:id="assoc_11_end2" type="uc_franjas" association="assoc_11"/>
+    </packagedElement>
+
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_12" name="A_Auxiliar_Reportes">
+      <memberEnd xmi:idref="assoc_12_end1"/><memberEnd xmi:idref="assoc_12_end2"/>
+      <ownedEnd xmi:id="assoc_12_end1" type="actor_auxiliar" association="assoc_12"/>
+      <ownedEnd xmi:id="assoc_12_end2" type="uc_reportes" association="assoc_12"/>
+    </packagedElement>
+
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_13" name="A_Admin_GestionarUsuarios">
+      <memberEnd xmi:idref="assoc_13_end1"/><memberEnd xmi:idref="assoc_13_end2"/>
+      <ownedEnd xmi:id="assoc_13_end1" type="actor_admin" association="assoc_13"/>
+      <ownedEnd xmi:id="assoc_13_end2" type="uc_gestionar_usuarios" association="assoc_13"/>
+    </packagedElement>
+
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_14" name="A_Pasarela_ProcesarPago">
+      <memberEnd xmi:idref="assoc_14_end1"/><memberEnd xmi:idref="assoc_14_end2"/>
+      <ownedEnd xmi:id="assoc_14_end1" type="actor_pasarela" association="assoc_14"/>
+      <ownedEnd xmi:id="assoc_14_end2" type="uc_pago" association="assoc_14"/>
+    </packagedElement>
+
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_15" name="A_HIS_HistoriaClinica">
+      <memberEnd xmi:idref="assoc_15_end1"/><memberEnd xmi:idref="assoc_15_end2"/>
+      <ownedEnd xmi:id="assoc_15_end1" type="actor_his" association="assoc_15"/>
+      <ownedEnd xmi:id="assoc_15_end2" type="uc_historia_clinica" association="assoc_15"/>
+    </packagedElement>
+
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_16" name="A_Mensajeria_Notificacion">
+      <memberEnd xmi:idref="assoc_16_end1"/><memberEnd xmi:idref="assoc_16_end2"/>
+      <ownedEnd xmi:id="assoc_16_end1" type="actor_mensajeria" association="assoc_16"/>
+      <ownedEnd xmi:id="assoc_16_end2" type="uc_notificacion" association="assoc_16"/>
+    </packagedElement>
+
+  </uml:Model>
+</xmi:XMI>
